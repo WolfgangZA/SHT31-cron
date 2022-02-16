@@ -1,14 +1,3 @@
-###########################################
-# Created by The Machine Shop 2019        #
-# Visit our website TheMachineShop.uk     #
-# This script interfaces the Zio Qwiic    #
-# Temperature and Humidity sensor (SHT31) #
-# to a Raspberry Pi over i2c and converts #
-# the data to celcius and percentage      #
-# requires python-smbus to be installed:  #
-# sudo apt-get install python-smbus       #   
-###########################################
-
 #import the required libraries
 import smbus
 import time
