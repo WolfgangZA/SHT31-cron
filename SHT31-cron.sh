@@ -1,13 +1,13 @@
 #!/bin/sh 
 
 #All values in Celcuis and RH percentage
-Identifier="Name of Server Room"
+Identifier="Server Room"
 
 MaxTemp=27.00
 MinTemp=18.00
 
 MaxHumidity=60.00
-MinHumidity=40.00
+MinHumidity=35.00
  
 TempOutput=$(python /etc/apcupsd/SHT31/SHT31-Temp.py)
 HumidityOutput=$(python /etc/apcupsd/SHT31/SHT31-Humidity.py)
@@ -30,15 +30,15 @@ fi
 #Check if Humidity is above or equal to MaxHumidity
 if ! awk "BEGIN{ exit ($HumidityOutput >= $MaxHumidity) }"
 then
-    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is above the specified value of $MaxHumidity" | mail -s "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is above the specified value of $MaxHumidity" test@test.com
-    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is above the specified value of $MaxHumidity" >> "/home/pi/Desktop/SHT31.events" 
+    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is above the specified value of $MaxHumidity %RH" | mail -s "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is above the specified value of $MaxHumidity %RH" test@test.com
+    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is above the specified value of $MaxHumidity %RH" >> "/home/pi/Desktop/SHT31.events" 
 fi
 
 #Check if Humidity is above or equal to MaxHumidity
 if ! awk "BEGIN{ exit ($HumidityOutput <= $MinHumidity) }"
 then
-    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is below the specified value of $MinHumidity" | mail -s "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is below the specified value of $MinHumidity" test@test.com
-    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is below the specified value of $MinHumidity" >> "/home/pi/Desktop/SHT31.events" 
+    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is below the specified value of $MinHumidity %RH" | mail -s "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is below the specified value of $MinHumidity %RH" test@test.com
+    echo $(date '+%d/%m/%Y %H:%M:%S') "WARNING! $Identifier Humidity is currently at $HumidityOutput %RH which is below the specified value of $MinHumidity %RH" >> "/home/pi/Desktop/SHT31.events" 
 fi
 
 
@@ -49,4 +49,4 @@ echo $(date '+%d/%m/%Y %H:%M:%S') "Temperature is: $TempOutput C | Humidity is: 
   
 
 
-echo "Output was $TempOutput and $HumidityOutput"
+echo "Temperature: $TempOutput C and Humidity: $HumidityOutput %RH"
